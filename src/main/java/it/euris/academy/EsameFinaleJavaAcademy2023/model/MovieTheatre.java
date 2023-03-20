@@ -20,7 +20,7 @@ public class MovieTheatre {
 
     private int maxSeats;
     private int currentSeats;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "idfilm")
     private Film currentFilm;
 
@@ -34,7 +34,7 @@ public class MovieTheatre {
     @Transient
     private int cinemaId;
 
-    public void increaseCurrentSeats(){
+    public void increaseCurrentSeats() {
         currentSeats++;
     }
 }

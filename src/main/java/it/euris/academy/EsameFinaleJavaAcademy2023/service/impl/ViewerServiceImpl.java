@@ -64,7 +64,7 @@ public class ViewerServiceImpl implements ViewerService {
             } else {
                 throw new MovieTheatreNotFoundException("Sala con id " + idMovieTheatre + " non trovata. Impossibile aggiungere uno spettatore a questa sala.");
             }
-        } catch (TheatreIsFullException | ViewerIsTooYoungException | MovieTheatreNotFoundException e){
+        } catch (TheatreIsFullException | ViewerIsTooYoungException | MovieTheatreNotFoundException e) {
             response.setErrorMsg(e.getMessage());
         }
         return response;

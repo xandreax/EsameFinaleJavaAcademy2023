@@ -8,9 +8,14 @@ import java.util.Optional;
 public interface CinemaService {
 
     Optional<Cinema> getById(int id);
-    Cinema insert (String name);
-    GenericResponse<Cinema> update (int id, String name);
+
+    Cinema insert(String name);
+
+    GenericResponse<Cinema> update(int id, String name);
+
     Boolean deleteById(int id);
+
     Boolean deleteAll();
+
     Double getIncasso(int idCinema);
 }

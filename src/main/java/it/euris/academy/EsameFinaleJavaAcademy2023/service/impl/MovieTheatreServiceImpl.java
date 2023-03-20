@@ -40,9 +40,9 @@ public class MovieTheatreServiceImpl implements MovieTheatreService {
     public GenericResponse<MovieTheatre> insert(int maxSeats, int filmId, int cinemaId) {
         GenericResponse<MovieTheatre> response = new GenericResponse<>();
         Optional<Cinema> cinema = cinemaRepository.findById(cinemaId);
-        if(cinema.isPresent()){
+        if (cinema.isPresent()) {
             Optional<Film> film = filmRepository.findById(filmId);
-            if(film.isPresent()){
+            if (film.isPresent()) {
                 MovieTheatre movieTheatre = movieTheatreRepository.save(MovieTheatre.builder()
                         .cinema(cinema.get())
                         .currentFilm(film.get())
@@ -113,7 +113,7 @@ public class MovieTheatreServiceImpl implements MovieTheatreService {
         return res;
     }
 
-    private List<Viewer> getViewerOfMovieTheatre(int idMovieTheatre){
+    private List<Viewer> getViewerOfMovieTheatre(int idMovieTheatre) {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Viewer> query = cb.createQuery(Viewer.class);
         Root<Viewer> rootViewer = query.from(Viewer.class);

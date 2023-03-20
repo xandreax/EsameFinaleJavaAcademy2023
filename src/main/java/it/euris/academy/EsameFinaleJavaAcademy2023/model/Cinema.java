@@ -22,5 +22,4 @@ public class Cinema {
     private String name;
 
 
-
 }

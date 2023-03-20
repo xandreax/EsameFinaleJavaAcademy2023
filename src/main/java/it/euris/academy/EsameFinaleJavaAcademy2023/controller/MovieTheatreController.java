@@ -18,22 +18,22 @@ public class MovieTheatreController {
     }
 
     @GetMapping("/{id}")
-    public Optional<MovieTheatre> getById(@PathVariable int id){
+    public Optional<MovieTheatre> getById(@PathVariable int id) {
         return movieTheatreService.getById(id);
     }
 
     @GetMapping("/empty/{id}")
-    public Boolean emptyMovieTheatreById(@PathVariable int id){
+    public Boolean emptyMovieTheatreById(@PathVariable int id) {
         return movieTheatreService.emptyTheatre(id);
     }
 
     @PostMapping()
-    public GenericResponse<MovieTheatre> insert(@RequestBody MovieTheatre movieTheatre){
+    public GenericResponse<MovieTheatre> insert(@RequestBody MovieTheatre movieTheatre) {
         return movieTheatreService.insert(movieTheatre.getMaxSeats(), movieTheatre.getFilmId(), movieTheatre.getCinemaId());
     }
 
     @PutMapping()
-    public GenericResponse<MovieTheatre> update(@RequestBody MovieTheatre movieTheatre){
+    public GenericResponse<MovieTheatre> update(@RequestBody MovieTheatre movieTheatre) {
         return movieTheatreService.update(movieTheatre.getId(), movieTheatre.getMaxSeats(), movieTheatre.getCurrentSeats(), movieTheatre.getFilmId(), movieTheatre.getCinemaId());
     }
 

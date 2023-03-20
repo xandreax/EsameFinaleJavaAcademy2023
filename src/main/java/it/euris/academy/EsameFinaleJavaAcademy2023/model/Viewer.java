@@ -32,20 +32,20 @@ public class Viewer {
     @JoinColumn(name = "idmovietheatre")
     private MovieTheatre movieTheatre;
 
-    public int getAge(){
+    public int getAge() {
         LocalDate currentDate = LocalDate.now();
         return Period.between(new java.sql.Date(birthday.getTime()).toLocalDate(), currentDate).getYears();
     }
 
-    public boolean isAdult(){
+    public boolean isAdult() {
         return getAge() > 18;
     }
 
-    public boolean isUnder5(){
-        return getAge()<5;
+    public boolean isUnder5() {
+        return getAge() < 5;
     }
 
-    public boolean isOver70(){
-        return getAge()>70;
+    public boolean isOver70() {
+        return getAge() > 70;
     }
 }

@@ -17,22 +17,22 @@ public class CinemaController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Cinema> getById(@PathVariable int id){
+    public Optional<Cinema> getById(@PathVariable int id) {
         return cinemaService.getById(id);
     }
 
     @GetMapping("/incasso/{id}")
-    public Double getIncassoSaleByIdCinema(@PathVariable int id){
+    public Double getIncassoSaleByIdCinema(@PathVariable int id) {
         return cinemaService.getIncasso(id);
     }
 
     @PostMapping()
-    public Cinema insert(@RequestBody Cinema cinema){
+    public Cinema insert(@RequestBody Cinema cinema) {
         return cinemaService.insert(cinema.getName());
     }
 
     @PutMapping()
-    public GenericResponse<Cinema> update(@RequestBody Cinema cinema){
+    public GenericResponse<Cinema> update(@RequestBody Cinema cinema) {
         return cinemaService.update(cinema.getId(), cinema.getName());
     }
 

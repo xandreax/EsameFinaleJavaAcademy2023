@@ -25,11 +25,11 @@ public class Ticket {
     private double price;
 
 
-    public void setSeniorsDiscount(){
+    public void setSeniorsDiscount() {
         price = price - (price * SENIORS_OVER70_DISCOUNT);
     }
 
-    public void setChildrenDiscount(){
+    public void setChildrenDiscount() {
         price = price * CHILDREN_UNDER5_DISCOUNT;
     }
 

@@ -17,17 +17,17 @@ public class FilmController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Film> getById(@PathVariable int id){
+    public Optional<Film> getById(@PathVariable int id) {
         return filmService.getById(id);
     }
 
     @PostMapping()
-    public Film insert(@RequestBody Film film){
+    public Film insert(@RequestBody Film film) {
         return filmService.insert(film.getTitle(), film.getAuthor(), film.getProducer(), film.getGenre(), film.getMinimumAge(), film.getDuration());
     }
 
     @PutMapping()
-    public GenericResponse<Film> update(@RequestBody Film film){
+    public GenericResponse<Film> update(@RequestBody Film film) {
         return filmService.update(film.getId(), film.getTitle(), film.getAuthor(), film.getProducer(), film.getGenre(), film.getMinimumAge(), film.getDuration());
     }
 

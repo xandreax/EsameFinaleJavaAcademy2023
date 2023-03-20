@@ -21,12 +21,12 @@ public class ViewerController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Viewer> getById(@PathVariable int id){
+    public Optional<Viewer> getById(@PathVariable int id) {
         return viewerService.getById(id);
     }
 
     @PostMapping()
-    public GenericResponse<Viewer> insert(@RequestBody ViewerTicketDTO viewer){
+    public GenericResponse<Viewer> insert(@RequestBody ViewerTicketDTO viewer) {
         try {
             Date birthday = ConverterStringToDate.convertToDate(viewer.getBirthday());
             return viewerService.insert(viewer.getName(), viewer.getSurname(), birthday, viewer.getMovieTheatreId(), viewer.getPrice(), viewer.getPosition());
@@ -38,7 +38,7 @@ public class ViewerController {
     }
 
     @PutMapping()
-    public GenericResponse<Viewer> update(@RequestBody ViewerTicketDTO viewer){
+    public GenericResponse<Viewer> update(@RequestBody ViewerTicketDTO viewer) {
         try {
             Date birthday = ConverterStringToDate.convertToDate(viewer.getBirthday());
             return viewerService.update(viewer.getId(), viewer.getName(), viewer.getSurname(), birthday, viewer.getMovieTheatreId(), viewer.getPrice(), viewer.getPosition());
