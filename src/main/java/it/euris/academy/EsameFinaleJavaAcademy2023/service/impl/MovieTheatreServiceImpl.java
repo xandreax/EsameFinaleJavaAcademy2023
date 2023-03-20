@@ -117,7 +117,7 @@ public class MovieTheatreServiceImpl implements MovieTheatreService {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Viewer> query = cb.createQuery(Viewer.class);
         Root<Viewer> rootViewer = query.from(Viewer.class);
-        Join<Viewer, MovieTheatre> joinTheatre = rootViewer.join("movietheatres", JoinType.INNER);
+        Join<Viewer, MovieTheatre> joinTheatre = rootViewer.join("movieTheatre", JoinType.INNER);
         Path<String> pathIdMovieTheatre = joinTheatre.get("id");
         List<Predicate> predicates = new ArrayList<>();
         predicates.add(cb.equal(pathIdMovieTheatre, idMovieTheatre));
