@@ -25,11 +25,11 @@ public class Viewer {
     private String surname;
     private Date birthday;
     @OneToOne
-    @JoinColumn(name = "idticket")
+    @JoinColumn
     private Ticket ticket;
 
     @ManyToOne
-    @JoinColumn(name = "idmovietheatre")
+    @JoinColumn
     private MovieTheatre movieTheatre;
 
     public int getAge() {

@@ -21,11 +21,11 @@ public class MovieTheatre {
     private int maxSeats;
     private int currentSeats;
     @ManyToOne
-    @JoinColumn(name = "idfilm")
+    @JoinColumn
     private Film currentFilm;
 
     @ManyToOne
-    @JoinColumn(name = "idcinema")
+    @JoinColumn
     private Cinema cinema;
 
     @Transient
