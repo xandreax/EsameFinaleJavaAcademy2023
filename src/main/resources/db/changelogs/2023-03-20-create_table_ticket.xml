@@ -4,5 +4,30 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="2023-03-20-create_table_tickets-001" author="amajcen">
+        <comment>CREATE TABLE TICKETS</comment>
+        <createTable tableName="tickets">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_tickets"/>
+            </column>
+            <column name="position" type="varchar(100)"/>
+            <column name="price" type="double"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="movietheatres"/>
+        </rollback>
 
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_tickets-002" author="amajcen">
+        <addNotNullConstraint tableName="tickets" columnName="position" columnDataType="varchar(100)"/>
+        <rollback>
+            <dropNotNullConstraint tableName="tickets" columnName="position"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_tickets-003" author="amajcen">
+        <addNotNullConstraint tableName="tickets" columnName="price" columnDataType="double"/>
+        <rollback>
+            <dropNotNullConstraint tableName="tickets" columnName="price"/>
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

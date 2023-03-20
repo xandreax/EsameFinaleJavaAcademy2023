@@ -4,5 +4,58 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="2023-03-20-create_table_films-001" author="amajcen">
+        <comment>CREATE TABLE FILM</comment>
+        <createTable tableName="films">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_films"/>
+            </column>
+            <column name="title" type="VARCHAR(100)"/>
+            <column name="author" type="VARCHAR(100)"/>
+            <column name="producer" type="VARCHAR(100)"/>
+            <column name="genre" type="VARCHAR(100)"/>
+            <column name="minimum_age" type="int"/>
+            <column name="duration" type="int"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="films"/>
+        </rollback>
 
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_films-002" author="amajcen">
+        <addNotNullConstraint tableName="films" columnName="title" columnDataType="varchar(100)"/>
+        <rollback>
+            <dropNotNullConstraint tableName="films" columnName="title"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_films-003" author="amajcen">
+        <addNotNullConstraint tableName="films" columnName="author" columnDataType="varchar(100)"/>
+        <rollback>
+            <dropNotNullConstraint tableName="films" columnName="author"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_films-004" author="amajcen">
+        <addNotNullConstraint tableName="films" columnName="producer" columnDataType="varchar(100)"/>
+        <rollback>
+            <dropNotNullConstraint tableName="films" columnName="producer"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_films-005" author="amajcen">
+        <addNotNullConstraint tableName="films" columnName="genre" columnDataType="varchar(100)"/>
+        <rollback>
+            <dropNotNullConstraint tableName="films" columnName="genre"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_films-006" author="amajcen">
+        <addNotNullConstraint tableName="films" columnName="minimum_age" columnDataType="int"/>
+        <rollback>
+            <dropNotNullConstraint tableName="films" columnName="minimum_age"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_films-007" author="amajcen">
+        <addNotNullConstraint tableName="films" columnName="duration" columnDataType="int"/>
+        <rollback>
+            <dropNotNullConstraint tableName="films" columnName="duration"/>
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

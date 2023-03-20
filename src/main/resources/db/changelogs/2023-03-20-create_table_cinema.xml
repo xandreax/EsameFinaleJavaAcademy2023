@@ -4,5 +4,23 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="2023-03-20-create_table_cinema-001" author="amajcen">
+        <comment>CREATE TABLE CINEMA</comment>
+        <createTable tableName="cinema">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_cinema"/>
+            </column>
+            <column name="name" type="VARCHAR(100)"/>
+        </createTable>
+        <rollback>
+            <dropTable tableName="cinema"/>
+        </rollback>
 
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_cinema-002" author="amajcen">
+        <addNotNullConstraint tableName="cinema" columnName="name" columnDataType="varchar(100)"/>
+        <rollback>
+            <dropNotNullConstraint tableName="cinema" columnName="name"/>
+        </rollback>
+    </changeSet>
 </databaseChangeLog>

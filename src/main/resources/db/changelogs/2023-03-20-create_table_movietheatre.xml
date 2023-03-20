@@ -4,5 +4,38 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.9.xsd">
+    <changeSet id="2023-03-20-create_table_movietheatres-001" author="amajcen">
+        <comment>CREATE TABLE MOVIE THEATRE</comment>
+        <createTable tableName="movietheatres">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" primaryKeyName="pk_movietheatres"/>
+            </column>
+            <column name="max_seats" type="int"/>
+            <column name="current_seats" type="int"/>
+            <column name="current_film" type="bigint">
+                <constraints nullable="false" referencedTableName="films" referencedColumnNames="id"
+                             foreignKeyName="fk_theatre_film"/>
+            </column>
+            <column name="cinema" type="bigint">
+                <constraints nullable="false" referencedTableName="cinema" referencedColumnNames="id"
+                             foreignKeyName="fk_theatre_cinema"/>
+            </column>
+        </createTable>
+        <rollback>
+            <dropTable tableName="movietheatres"/>
+        </rollback>
 
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_movietheatres-002" author="amajcen">
+        <addNotNullConstraint tableName="movietheatres" columnName="max_seats" columnDataType="int"/>
+        <rollback>
+            <dropNotNullConstraint tableName="movietheatres" columnName="max_seats"/>
+        </rollback>
+    </changeSet>
+    <changeSet id="2023-03-20-create_table_movietheatres-003" author="amajcen">
+        <addNotNullConstraint tableName="movietheatres" columnName="current_seats" columnDataType="int"/>
+        <rollback>
+            <dropNotNullConstraint tableName="movietheatres" columnName="current_seats"/>
+        </rollback>
+    </changeSet>
 </databaseChangeLog>
