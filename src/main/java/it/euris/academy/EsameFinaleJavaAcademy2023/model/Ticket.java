@@ -22,15 +22,15 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String position;
-    private double priceTicket;
+    private double price;
 
 
-    public void getSeniorsDiscount(){
-
+    public void setSeniorsDiscount(){
+        price = price - (price * SENIORS_OVER70_DISCOUNT);
     }
 
-    public void getChildrenDiscount(){
-
+    public void setChildrenDiscount(){
+        price = price * CHILDREN_UNDER5_DISCOUNT;
     }
 
 }

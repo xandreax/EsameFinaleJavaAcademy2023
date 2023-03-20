@@ -19,6 +19,8 @@ public class Cinema {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private String name;
+
     @Transient
     private List<MovieTheatre> movieTheatreList;
 

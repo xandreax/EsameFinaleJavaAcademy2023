@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.Date;
 
 @Data
@@ -23,10 +25,27 @@ public class Viewer {
     private String surname;
     private Date birthday;
     @OneToOne
-    @JoinColumn
+    @JoinColumn(name = "idticket")
     private Ticket ticket;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "idmovietheatre")
     private MovieTheatre movieTheatre;
+
+    public int getAge(){
+        LocalDate currentDate = LocalDate.now();
+        return Period.between(new java.sql.Date(birthday.getTime()).toLocalDate(), currentDate).getYears();
+    }
+
+    public boolean isAdult(){
+        return getAge() > 18;
+    }
+
+    public boolean isUnder5(){
+        return getAge()<5;
+    }
+
+    public boolean isOver70(){
+        return getAge()>70;
+    }
 }
