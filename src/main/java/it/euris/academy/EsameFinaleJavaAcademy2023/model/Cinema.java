@@ -21,12 +21,6 @@ public class Cinema {
 
     private String name;
 
-    @Transient
-    private List<MovieTheatre> movieTheatreList;
 
-    public double getTotalImport(){
-
-        return 0;
-    }
 
 }

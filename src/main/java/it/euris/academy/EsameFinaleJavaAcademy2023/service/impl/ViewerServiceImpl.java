@@ -1,5 +1,8 @@
 package it.euris.academy.EsameFinaleJavaAcademy2023.service.impl;
 
+import it.euris.academy.EsameFinaleJavaAcademy2023.exceptions.MovieTheatreNotFoundException;
+import it.euris.academy.EsameFinaleJavaAcademy2023.exceptions.TheatreIsFullException;
+import it.euris.academy.EsameFinaleJavaAcademy2023.exceptions.ViewerIsTooYoungException;
 import it.euris.academy.EsameFinaleJavaAcademy2023.model.MovieTheatre;
 import it.euris.academy.EsameFinaleJavaAcademy2023.model.Ticket;
 import it.euris.academy.EsameFinaleJavaAcademy2023.model.Viewer;
@@ -36,28 +39,33 @@ public class ViewerServiceImpl implements ViewerService {
         GenericResponse<Viewer> response = new GenericResponse<>();
         Optional<MovieTheatre> movieTheatre = movieTheatreRepository.findById(idMovieTheatre);
         Viewer viewer = Viewer.builder().name(name).surname(surname).birthday(birthday).build();
-        if(movieTheatre.isPresent()){
-            if(movieTheatre.get().getCurrentSeats() >= movieTheatre.get().getMaxSeats()){
-                response.setErrorMsg("Sala con id " + idMovieTheatre + " già piena. Impossibile aggiungere uno spettatore a questa sala.");
-            } else if(viewer.getAge() < movieTheatre.get().getCurrentFilm().getMinimumAge()){
-                response.setErrorMsg("Sala con id " + idMovieTheatre + " ha in proiezione con un film inadatto all'età di questo spettatore. Impossibile aggiungere uno spettatore a questa sala.");
-            } else{
-                viewer.setMovieTheatre(movieTheatre.get());
-                Ticket ticket = Ticket.builder().price(price).position(position).build();
-                if(viewer.isOver70()){
-                    ticket.setSeniorsDiscount();
+        try {
+            if (movieTheatre.isPresent()) {
+                if (movieTheatre.get().getCurrentSeats() >= movieTheatre.get().getMaxSeats()) {
+                    throw new TheatreIsFullException("Sala con id " + idMovieTheatre + " già piena. Impossibile aggiungere uno spettatore a questa sala.");
                 }
-                if(viewer.isUnder5()){
-                    ticket.setChildrenDiscount();
+                if (viewer.getAge() < movieTheatre.get().getCurrentFilm().getMinimumAge()) {
+                    throw new ViewerIsTooYoungException("Sala con id " + idMovieTheatre + " ha in proiezione con un film inadatto all'età di questo spettatore. Impossibile aggiungere lo spettatore a questa sala.");
+                } else {
+                    viewer.setMovieTheatre(movieTheatre.get());
+                    Ticket ticket = Ticket.builder().price(price).position(position).build();
+                    if (viewer.isOver70()) {
+                        ticket.setSeniorsDiscount();
+                    }
+                    if (viewer.isUnder5()) {
+                        ticket.setChildrenDiscount();
+                    }
+                    Ticket ticketInserted = ticketRepository.save(ticket);
+                    viewer.setTicket(ticketInserted);
+                    viewerRepository.save(viewer);
+                    movieTheatre.get().increaseCurrentSeats();
+                    movieTheatreRepository.save(movieTheatre.get());
                 }
-                Ticket ticketInserted = ticketRepository.save(ticket);
-                viewer.setTicket(ticketInserted);
-                viewerRepository.save(viewer);
-                movieTheatre.get().increaseCurrentSeats();
-                movieTheatreRepository.save(movieTheatre.get());
+            } else {
+                throw new MovieTheatreNotFoundException("Sala con id " + idMovieTheatre + " non trovata. Impossibile aggiungere uno spettatore a questa sala.");
             }
-        } else {
-            response.setErrorMsg("Sala con id " + idMovieTheatre + " non trovata. Impossibile aggiungere uno spettatore a questa sala.");
+        } catch (TheatreIsFullException | ViewerIsTooYoungException | MovieTheatreNotFoundException e){
+            response.setErrorMsg(e.getMessage());
         }
         return response;
     }

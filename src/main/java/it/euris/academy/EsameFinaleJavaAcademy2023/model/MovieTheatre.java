@@ -28,6 +28,12 @@ public class MovieTheatre {
     @JoinColumn(name = "idcinema")
     private Cinema cinema;
 
+    @Transient
+    private int filmId;
+
+    @Transient
+    private int cinemaId;
+
     public void increaseCurrentSeats(){
         currentSeats++;
     }
